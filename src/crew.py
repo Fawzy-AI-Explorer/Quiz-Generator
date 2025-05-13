@@ -132,7 +132,7 @@ class QuizGeneratorCrew:
                     tasks_config["quiz_generate"]["expected_output"]
                 ),
                 agent=self.mcq_generator_agent[0],
-                output_file=mcq_out_path,
+                output_file=repr(mcq_out_path),
                 output_json=Quiz
                 )
             tf_generate_task = Task(
@@ -145,7 +145,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[2],
                 # context=tasks_config["quiz_analysis"]["context"],
-                output_file=tf_out_path,
+                output_file=repr(tf_out_path),
                 output_json=TrueFalseQuestions,
             )
             analysis_generate_task = Task(
@@ -158,7 +158,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[1],
                 context=[mcq_generate_task, tf_generate_task],
-                output_file=analyze_out_path,
+                output_file=repr(analyze_out_path),
                 output_json=QuizAnalysisOutput,
             )
             return [
