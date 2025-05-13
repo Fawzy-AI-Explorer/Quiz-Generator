@@ -8,6 +8,20 @@ Uses a pipeline to process text and create questions.
 import json
 import streamlit as st
 from src.quiz_pipeline import run_pipeline
+
+import sqlite3
+print(sqlite3.sqlite_version)
+import sys
+import chromadb
+import crewai
+import streamlit
+import numpy
+print("Python version:", sys.version)
+print("ChromaDB version:", chromadb.__version__)
+print("CrewAI version:", crewai.__version__)
+print("Streamlit version:", streamlit.__version__)
+print("NumPy version:", numpy.__version__)
+
 # Custom CSS for better styling
 st.markdown(
     """
