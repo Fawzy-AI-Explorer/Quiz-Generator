@@ -1,5 +1,5 @@
 # Quiz Generator Configuration
-quiz_generator:
+quiz_generate:
   name: quiz generator
   description: >
       Analyze the following technical content and generate a high-quality quiz:
@@ -16,7 +16,7 @@ quiz_generator:
   expected_output: >
     JSON object containing 10 MCQs following the specified format.
     Ensure proper escaping for JSON validity.
-  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\generated_quiz.json #os.path.join(OUTPUT_PATH, "generated_quiz.json
+  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\generated_quiz.json #os.path.join(OUTPUT_PATH, "generated_quiz.json
 
 
 # Quiz Analyzer Configuration
@@ -33,4 +33,4 @@ quiz_analysis:
     Ensure proper escaping for JSON validity.
   context: >
     - quiz_generator
-  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\quiz_analysis.json
+  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\quiz_analysis.json
