@@ -25,12 +25,12 @@ def run_pipeline(DATA_PATH):
         print(f"Pipeline failed: {str(e)}")
         raise
     with open(
-        file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\mcq_quiz.json',
+        file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\mcq_quiz.json',
         mode='r',
         encoding='utf-8'
     ) as f1, \
         open(
-            file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\tf_quiz.json',
+            file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\tf_quiz.json',
             mode='r',
             encoding='utf-8'
         ) as f2:
