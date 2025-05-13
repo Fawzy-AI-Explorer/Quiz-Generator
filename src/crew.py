@@ -11,7 +11,7 @@ from src.utils import create_output_dir
 # Load agent configuration from YAML
 try:
     with open(
-        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\agents.yaml',
+        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\agents.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -22,7 +22,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\tasks.yaml',
+        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\tasks.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
