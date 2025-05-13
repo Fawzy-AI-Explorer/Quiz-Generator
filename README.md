@@ -128,9 +128,6 @@ Thanks to all the amazing people who have contributed to this project!
   <img src="https://contrib.rocks/image?repo=Fawzy-AI-Explorer/Quiz-Generator" />
 </a>
 
-### Project Team
-- [Fawzy-AI-Explorer](https://github.com/Fawzy-AI-Explorer) - Project Lead & Main Developer
-
 
 ## 🙏 Acknowledgments
 
