@@ -8,7 +8,8 @@ from src.Pydantic_models import Quiz, QuizAnalysisOutput, TrueFalseQuestions
 from src.utils import create_output_dir
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
-config_path = os.path.join(current_directory, 'src', 'config', 'agents.yaml')
+print(current_directory)
+config_path = os.path.join(current_directory, 'config', 'agents.yaml')
 
 # Load agent configuration from YAML
 try:
