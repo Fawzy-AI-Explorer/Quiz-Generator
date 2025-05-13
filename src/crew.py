@@ -9,12 +9,16 @@ from src.utils import create_output_dir
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
-config_path = os.path.join(current_directory, 'config', 'agents.yaml')
+config_agent_path = os.path.join(current_directory, 'config', 'agents.yaml')
+
+current_directory = os.path.dirname(os.path.abspath(__file__))
+print(current_directory)
+config_task_path = os.path.join(current_directory, 'config', 'agents.yaml')
 
 # Load agent configuration from YAML
 try:
     with open(
-        config_path,
+        config_agent_path,
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -25,7 +29,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'mount\src\config\tasks.yaml',
+        config_task_path,
         mode='r',
         encoding='utf-8'
     ) as file:
