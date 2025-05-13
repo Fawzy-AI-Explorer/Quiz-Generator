@@ -8,6 +8,11 @@ using CrewAI agents. Takes a PDF input and produces JSON quiz output.
 from src.crew import QuizGeneratorCrew
 from src.utils import process_pdf
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+print(current_directory)
+mcq_quiz_file = os.path.join(current_directory, 'output', 'mcq_quiz.json')
+tf_quiz_file = os.path.join(current_directory, 'output', 'tf_quiz.json')
+analyzer_quiz_file = os.path.join(current_directory, 'output', 'quiz_analysis.json')
 
 def run_pipeline(DATA_PATH):
     try:
@@ -25,17 +30,17 @@ def run_pipeline(DATA_PATH):
         print(f"Pipeline failed: {str(e)}")
         raise
     with open(
-        file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\mcq_quiz.json',
+        file=mcq_quiz_file,
         mode='r',
         encoding='utf-8'
     ) as f1, \
         open(
-            file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\tf_quiz.json',
+            file=tf_quiz_file,
             mode='r',
             encoding='utf-8'
         ) as f2, \
         open(
-            file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\quiz_analysis.json',
+            file=analyzer_quiz_file,
             mode='r',
             encoding='utf-8'
         ) as f3:
