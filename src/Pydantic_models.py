@@ -51,7 +51,7 @@ class QuizQuestionAnalysis(BaseModel):
     )
 
 class QuizAnalysisOutput(BaseModel):
-    quiz: Dict[str, QuizQuestionAnalysis] = Field(
+    quiz: List[QuizQuestionAnalysis] = Field(
         ...,
-        description="A dictionary where keys are question identifiers (e.g., 'Q1', 'Q2') and values are QuizQuestionAnalysis objects containing the analysis for each quiz question."
+        # description="A dictionary where keys are question identifiers (e.g., 'Q1', 'Q2') and values are QuizQuestionAnalysis objects containing the analysis for each quiz question."
     )
