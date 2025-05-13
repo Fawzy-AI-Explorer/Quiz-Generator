@@ -2,3 +2,6 @@ crewai
 crewai_tools
 langchain_community
 pypdf
+streamlit
+PyPDF2
+black
