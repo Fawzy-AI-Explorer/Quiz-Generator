@@ -37,11 +37,6 @@ try:
 except Exception as e:
     raise RuntimeError(f"Failed to load tasks.yaml: {e}") from e
 
-load_dotenv()
-PROVIDER = os.getenv("PROVIDER")
-MODEL = os.getenv("MODEL")
-BASE_URL = os.getenv("BASE_URL")
-TEMPERATURE = float(os.getenv("TEMPERATURE"))
 
 class QuizGeneratorCrew:
     """
@@ -73,7 +68,7 @@ class QuizGeneratorCrew:
                 model='groq/gemma2-9b-it',
                 # base_url="http://localhost:11434",
                 temperature=1,
-                api_key=os.getenv("GROQ_API_KEY")
+                api_key="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"
             )
         except Exception as e:
             raise RuntimeError(f"Failed to initialize LLM: {e}") from e
