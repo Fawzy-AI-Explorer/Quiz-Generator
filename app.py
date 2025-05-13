@@ -8,7 +8,9 @@ Uses a pipeline to process text and create questions.
 import json
 import streamlit as st
 from src.quiz_pipeline import run_pipeline
-
+import sys
+import pysqlite3
+sys.modules["sqlite3"] = pysqlite3
 # App configuration
 st.set_page_config(
     page_title="Quiz Generator",
