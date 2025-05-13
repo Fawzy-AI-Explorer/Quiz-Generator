@@ -5,18 +5,19 @@ A Streamlit app that generates multiple-choice quizzes from input text.
 Uses a pipeline to process text and create questions.
 """
 
-import sqlite3
-print(sqlite3.sqlite_version)
 import sys
+try:
+    __import__("pysqlite3")
+    sys.modules["sqlite3"] = sys.modules.pop("pysqlite3")
+except ImportError:
+    print("pysqlite3 not installed, falling back to default sqlite3")
+import sqlite3
+print(f"SQLite version: {sqlite3.sqlite_version}")
+print(f"SQLite module path: {sqlite3.__file__}")
 import chromadb
 import crewai
 import streamlit
 import numpy
-print("Python version:", sys.version)
-print("ChromaDB version:", chromadb.__version__)
-print("CrewAI version:", crewai.__version__)
-print("Streamlit version:", streamlit.__version__)
-print("NumPy version:", numpy.__version__)
 
 import json
 import streamlit as st
