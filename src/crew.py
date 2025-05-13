@@ -4,14 +4,14 @@ import yaml
 from crewai import Agent, Task, Crew, Process, LLM
 from dotenv import load_dotenv
 from src.config.config import OUTPUT_PATH
-from src.Pydantic_models import Quiz, QuizAnalysisOutput
+from src.Pydantic_models import Quiz, QuizAnalysisOutput, TrueFalseQuestions
 from src.utils import create_output_dir
 
 
 # Load agent configuration from YAML
 try:
     with open(
-        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\agents.yaml',
+        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\agents.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -22,7 +22,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\tasks.yaml',
+        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\tasks.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -99,6 +99,16 @@ class QuizGeneratorCrew:
                 llm=self.llm,
                 verbose=True,
                 allow_delegation=False
+            ),
+            Agent(
+                role=agents_config["tf_question_agent"]["role"],
+                goal=agents_config["tf_question_agent"]["goal"],
+                backstory=(
+                    agents_config["tf_question_agent"]["backstory"]
+                ),
+                llm=self.llm,
+                verbose=True,
+                allow_delegation=False
             )
             ]
         except Exception as e:
@@ -124,6 +134,19 @@ class QuizGeneratorCrew:
                 output_file=tasks_config["quiz_generate"]["output_file"],
                 output_json=Quiz
                 ),
+            Task(
+                name=tasks_config['tf_question_task']['name'],
+                description=(
+                    tasks_config["tf_question_task"]["description"]
+                ),
+                expected_output=(
+                    tasks_config["tf_question_task"]["expected_output"]
+                ),
+                agent=self.mcq_generator_agent[2],
+                # context=tasks_config["quiz_analysis"]["context"],
+                output_file=tasks_config["tf_question_task"]["output_file"],
+                output_json=TrueFalseQuestions,
+            ),
             Task(
                 name=tasks_config['quiz_analysis']['name'],
                 description=(
