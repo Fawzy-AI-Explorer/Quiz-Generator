@@ -11,9 +11,9 @@ import os
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
-mcq_quiz_file = '/mount/src/quiz-generator/src/output/mcq_quiz.json'
-tf_quiz_file = '/mount/src/quiz-generator/src/output/tf_quiz.json'
-analyzer_quiz_file = '/mount/src/quiz-generator/src/output/quiz_analysis.json'
+mcq_quiz_file = '/mount/src/quiz-generator/output/mcq_quiz.json'
+tf_quiz_file = '/mount/src/quiz-generator/output/tf_quiz.json'
+analyzer_quiz_file = '/mount/src/quiz-generator/output/quiz_analysis.json'
 
 def run_pipeline(DATA_PATH):
     try:
