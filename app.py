@@ -60,7 +60,7 @@ st.markdown(
     .quiz-title {
         font-size: 24px;
         font-weight: bold;
-        color: #1f2937;
+        color: #f6d55c;
         margin-bottom: 20px;
     }
     </style>
@@ -241,18 +241,18 @@ def main():
                 st.markdown("### Generated T/F Quiz Content")
                 st.markdown(tf_formatted_output, unsafe_allow_html=True)
 
-                # Generate plain text for download
-                quiz_text = format_quiz_text(mcq_parsed_json, tf_parsed_json)
-                if quiz_text:
-                    st.download_button(
-                        label="Download Quiz",
-                        data=quiz_text,
-                        file_name="quiz.txt",
-                        mime="text/plain",
-                        key="download_quiz",
-                    )
-            else:
-                st.warning("No quiz data found in the processed PDF.")
+            # Generate plain text for download
+            quiz_text = format_quiz_text(mcq_parsed_json, tf_parsed_json)
+            if quiz_text:
+                st.download_button(
+                    label="Download Quiz",
+                    data=quiz_text,
+                    file_name="quiz.txt",
+                    mime="text/plain",
+                    key="download_quiz",
+                )
+            # else:
+            #     st.warning("No quiz data found in the processed PDF.")
         except json.JSONDecodeError:
             st.error(
                 "Error: Unable to parse quiz data. The extracted content is not valid JSON."
@@ -263,3 +263,6 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+# To run the app, use the command:
+# streamlit run app.py
