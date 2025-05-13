@@ -123,8 +123,7 @@ class QuizGeneratorCrew:
             list: List of Task objects for quiz generation and analysis.
         """
         try:
-            return [
-                Task(
+            mcq_generate_task = Task(
                 name=tasks_config['quiz_generate']['name'],
                 description=(
                     tasks_config["quiz_generate"]["description"]
@@ -135,8 +134,8 @@ class QuizGeneratorCrew:
                 agent=self.mcq_generator_agent[0],
                 output_file=mcq_out_path,
                 output_json=Quiz
-                ),
-            Task(
+                )
+            tf_generate_task = Task(
                 name=tasks_config['tf_question_task']['name'],
                 description=(
                     tasks_config["tf_question_task"]["description"]
@@ -148,8 +147,8 @@ class QuizGeneratorCrew:
                 # context=tasks_config["quiz_analysis"]["context"],
                 output_file=tf_out_path,
                 output_json=TrueFalseQuestions,
-            ),
-            Task(
+            )
+            analysis_generate_task = Task(
                 name=tasks_config['quiz_analysis']['name'],
                 description=(
                     tasks_config["quiz_analysis"]["description"]
@@ -158,13 +157,18 @@ class QuizGeneratorCrew:
                     tasks_config["quiz_analysis"]["expected_output"]
                 ),
                 agent=self.mcq_generator_agent[1],
-                # context=tasks_config["quiz_analysis"]["context"],
+                context=[mcq_generate_task, tf_generate_task],
                 output_file=analyze_out_path,
                 output_json=QuizAnalysisOutput,
             )
+            return [
+                mcq_generate_task,
+                tf_generate_task,
+                analysis_generate_task
             ]
         except Exception as e:
             raise RuntimeError(f"Failed to create tasks: {e}") from e
+
     def kickoff(self, inputs):
         """Kickoff the quiz generation process.
         
