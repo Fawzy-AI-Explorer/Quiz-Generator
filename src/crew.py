@@ -10,10 +10,10 @@ from src.utils import create_output_dir
 current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
 config_agent_path = os.path.join(current_directory, 'config', 'agents.yaml')
-
-current_directory = os.path.dirname(os.path.abspath(__file__))
-print(current_directory)
 config_task_path = os.path.join(current_directory, 'config', 'agents.yaml')
+mcq_out_path = os.path.join(current_directory, 'output', 'mcq_quiz.json')
+tf_out_path = os.path.join(current_directory, 'output', 'tf_quiz.json')
+analyze_out_path = os.path.join(current_directory, 'output', 'quiz_analysis.json')
 
 # Load agent configuration from YAML
 try:
@@ -133,7 +133,7 @@ class QuizGeneratorCrew:
                     tasks_config["quiz_generate"]["expected_output"]
                 ),
                 agent=self.mcq_generator_agent[0],
-                output_file=tasks_config["quiz_generate"]["output_file"],
+                output_file=mcq_out_path,
                 output_json=Quiz
                 ),
             Task(
@@ -146,7 +146,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[2],
                 # context=tasks_config["quiz_analysis"]["context"],
-                output_file=tasks_config["tf_question_task"]["output_file"],
+                output_file=tf_out_path,
                 output_json=TrueFalseQuestions,
             ),
             Task(
@@ -159,7 +159,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[1],
                 # context=tasks_config["quiz_analysis"]["context"],
-                output_file=tasks_config["quiz_analysis"]["output_file"],
+                output_file=analyze_out_path,
                 output_json=QuizAnalysisOutput,
             )
             ]
