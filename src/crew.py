@@ -11,7 +11,7 @@ from src.utils import create_output_dir
 # Load agent configuration from YAML
 try:
     with open(
-        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\agents.yaml',
+        r'src\config\agents.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
