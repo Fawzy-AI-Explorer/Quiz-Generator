@@ -10,7 +10,7 @@ from src.utils import create_output_dir
 current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
 config_agent_path = os.path.join(current_directory, 'config', 'agents.yaml')
-config_task_path = os.path.join(current_directory, 'config', 'agents.yaml')
+config_task_path = os.path.join(current_directory, 'config', 'tasks.yaml')
 mcq_out_path = os.path.join(current_directory, 'output', 'mcq_quiz.json')
 tf_out_path = os.path.join(current_directory, 'output', 'tf_quiz.json')
 analyze_out_path = os.path.join(current_directory, 'output', 'quiz_analysis.json')
