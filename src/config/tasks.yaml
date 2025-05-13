@@ -16,7 +16,7 @@ quiz_generator:
   expected_output: >
     JSON object containing 10 MCQs following the specified format.
     Ensure proper escaping for JSON validity.
-  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\generated_quiz.json #os.path.join(OUTPUT_PATH, "generated_quiz.json
+  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\generated_quiz.json #os.path.join(OUTPUT_PATH, "generated_quiz.json
 
 
 # Quiz Analyzer Configuration
@@ -29,20 +29,8 @@ quiz_analysis:
     Takes the output of the previous quiz_generator agent, which provides the quiz questions
     along with the correct answer index, as context.
   expected_output: >
-    A JSON object with the following structure:
-    {
-      "quiz": {
-        "Q1": {
-          "Question Explanation": "<A brief summary of the question's focus and context.>",
-          "Answer Feedback": "<Detailed explanations for each answer option, specifying whether it is correct or incorrect, with reasons and document references (e.g., 'Section 2.1, Page 15').>",
-          "Correct Answer": "<Identification of the correct answer with a clear justification and document reference.>",
-          "Related Topics": "<A list of suggested topics for further study, tied to document content or broader concepts.>"
-        },
-        "Q2": {
-          ...
-        }
-      }
-    }
+    JSON object following the specified format.
+    Ensure proper escaping for JSON validity.
   context: >
     - quiz_generator
-  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\quiz_analysis.json
+  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\quiz_analysis.json
