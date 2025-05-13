@@ -5,4 +5,4 @@ pypdf
 streamlit
 PyPDF2
 black
-sqlite3 >= 3.35.0.
+sqlite3>=3.35.0
