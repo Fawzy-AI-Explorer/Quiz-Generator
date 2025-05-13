@@ -8,17 +8,7 @@ Uses a pipeline to process text and create questions.
 import json
 import streamlit as st
 from src.quiz_pipeline import run_pipeline
-import pysqlite3
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
 # Custom CSS for better styling
 st.markdown(
     """
