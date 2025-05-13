@@ -1,15 +1,19 @@
+"""
+Quiz Generation Pipeline
+
+Orchestrates the process of extracting text from PDFs and generating quiz questions 
+using CrewAI agents. Takes a PDF input and produces JSON quiz output.
+"""
+
 from crew import QuizGeneratorCrew
 from utils import process_pdf
 from config.config import DATA_PATH
-
-# from crew import get_crew
-
 
 
 try:
     # Process PDF
     txt = process_pdf(DATA_PATH)
-    print(f"PDF content extracted successfully!")
+    print("PDF content extracted successfully!")
     # print(txt)
     # Initialize and run crew
     inputs = {
