@@ -11,9 +11,9 @@ current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
 config_agent_path = '/mount/src/quiz-generator/src/config/agents.yaml'
 config_task_path = '/mount/src/quiz-generator/src/config/tasks.yaml'
-mcq_out_path = '/mount/src/quiz-generator/output/mcq_quiz.yaml'
-tf_out_path = '/mount/src/quiz-generator/output/tf_quiz.yaml'
-analyze_out_path = '/mount/src/quiz-generator/output/quiz_analyzer.yaml'
+mcq_out_path = '/mount/src/quiz-generator/output/mcq_quiz.json'
+tf_out_path = '/mount/src/quiz-generator/output/tf_quiz.json'
+analyze_out_path = '/mount/src/quiz-generator/output/quiz_analyzer.json'
 
 # Load agent configuration from YAML
 try:
