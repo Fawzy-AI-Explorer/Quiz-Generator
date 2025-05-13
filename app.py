@@ -69,7 +69,7 @@ st.markdown(
 )
 
 
-def format_quiz_output(json_data_mcq, json_data_tf):
+def format_quiz_output(json_data_mcq, json_data_tf, json_data_analysis):
     """Format quiz JSON data into HTML output for MCQ and True/False questions.
 
     Args:
@@ -132,7 +132,24 @@ def format_quiz_output(json_data_mcq, json_data_tf):
         question_html += "</div>"
         tf_output += question_html
 
-    return mcq_output, tf_output
+    # Quiz Analysis
+    if "quiz" not in json_data_analysis:
+        return None
+
+    quiz_items = json_data_analysis["quiz"]
+
+    analysis_output = f'<div class="quiz-title">Quiz on {topic}</div>'
+
+    for idx, item in enumerate(quiz_items, 1):
+        question_html = f'<div class="quiz-container">'
+        question_html += f'<div class="quiz-question">Question Explanation: {item["Question_Explanation"]}</div>'
+        question_html += f'<div class="quiz-question">Answer Feedback: {item["Answer_Feedback"]}</div>'
+        question_html += f'<div class="quiz-question">Correct Answer: {item["Correct_Answer"]}</div>'
+        question_html += f'<div class="quiz-question">Related Topics: {item["Related_Topics"]}</div>'
+        question_html += "</div>"
+        analysis_output += question_html
+
+    return mcq_output, tf_output, analysis_output
 
 
 def format_quiz_text(json_data_mcq, json_data_tf):
@@ -169,18 +186,6 @@ def format_quiz_text(json_data_mcq, json_data_tf):
 
 
 def main():
-    """Main function for the Quiz Generator Streamlit application.
-    
-    This function handles:
-    - Initialization of session state variables for file content, JSON output and upload time
-    - Setting up the main UI components including title and file upload
-    - Processing uploaded PDF files through the quiz generation pipeline
-    - Displaying generated quiz content in both MCQ and True/False formats
-    - Providing download functionality for the generated quiz
-    
-    The function uses Streamlit for all UI components and interactions, managing state
-    through st.session_state to persist data between reruns.
-    """
     # Initialize session state variables
     if "uploaded_file_content" not in st.session_state:
         st.session_state.uploaded_file_content = None
@@ -224,12 +229,14 @@ def main():
         try:
             mcq_json_out = st.session_state.json_output[0]
             tf_json_out = st.session_state.json_output[1]
+            analysis_json_out = st.session_state.json_output[2]
             mcq_parsed_json = json.loads(mcq_json_out)
             tf_parsed_json = json.loads(tf_json_out)
+            analysis_parsed_json = json.loads(analysis_json_out)
 
             # Format JSON output for display
-            mcq_formatted_output, tf_formatted_output = format_quiz_output(
-                mcq_parsed_json, tf_parsed_json
+            mcq_formatted_output, tf_formatted_output, analysis_formatted_output = format_quiz_output(
+                mcq_parsed_json, tf_parsed_json, analysis_parsed_json
             )
 
             # Display mcq formatted quiz
@@ -240,17 +247,21 @@ def main():
             if tf_formatted_output:
                 st.markdown("### Generated T/F Quiz Content")
                 st.markdown(tf_formatted_output, unsafe_allow_html=True)
+            # Display tf formatted quiz
+            if analysis_formatted_output:
+                st.markdown("### Generated Quiz Analysis Content")
+                st.markdown(analysis_formatted_output, unsafe_allow_html=True)
 
-            # Generate plain text for download
-            quiz_text = format_quiz_text(mcq_parsed_json, tf_parsed_json)
-            if quiz_text:
-                st.download_button(
-                    label="Download Quiz",
-                    data=quiz_text,
-                    file_name="quiz.txt",
-                    mime="text/plain",
-                    key="download_quiz",
-                )
+            # # Generate plain text for download
+            # quiz_text = format_quiz_text(mcq_parsed_json, tf_parsed_json)
+            # if quiz_text:
+            #     st.download_button(
+            #         label="Download Quiz",
+            #         data=quiz_text,
+            #         file_name="quiz.txt",
+            #         mime="text/plain",
+            #         key="download_quiz",
+            #     )
             # else:
             #     st.warning("No quiz data found in the processed PDF.")
         except json.JSONDecodeError:
@@ -263,6 +274,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# To run the app, use the command:
-# streamlit run app.py
