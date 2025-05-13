@@ -3,7 +3,7 @@ from pydantic import BaseModel, Field
 from typing import List
 
 # ==============================
-# Quiz Generator Pydantic Models
+# MCQ-Question Generator Pydantic Models
 # ==============================
 class Question(BaseModel):
     """Model for a single multiple-choice question."""
@@ -25,9 +25,9 @@ class Quiz(BaseModel):
     """Model for the complete quiz with multiple questions."""
     quiz: List[Question] = Field(
         ...,
-        min_items=10,
-        max_items=10,
-        description="Exactly 10 high-quality questions"
+        min_items=5,
+        max_items=5,
+        description="Exactly 5 high-quality questions"
     )
     topic: str = Field(
         ...,
@@ -62,4 +62,31 @@ class QuizAnalysisOutput(BaseModel):
         ...,
         # description="A dictionary where keys are question identifiers (e.g., 'Q1', 'Q2') and values are QuizQuestionAnalysis objects containing the analysis for each quiz question."
     )
-    
+
+# =====================================
+# TF-Question Generator Pydantic Models
+# =====================================
+class TrueFalseQuestion(BaseModel):
+    """Model for a T-F question."""
+    question: str = Field(..., title="The generated True/False question.")
+    options: List[str] = Field(
+        ...,
+        min_items=2,
+        max_items=2,
+        description="List of answer options with exactly 2 items (1 correct, 1 distractor)"
+    )
+    correct_index: int = Field(
+        ...,
+        ge=0,
+        le=1,
+        description="Zero-based index of the correct answer (0-1)"
+    )
+
+class TrueFalseQuestions(BaseModel):
+    """Model for the complete quiz with multiple questions."""
+    quiz: List[TrueFalseQuestion] = Field(
+        ...,
+        min_items=5,
+        max_items=5,
+        description="Exactly 5 high-quality true/false questions"
+    )
