@@ -11,7 +11,7 @@ from src.utils import create_output_dir
 # Load agent configuration from YAML
 try:
     with open(
-        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\agents.yaml',
+        r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\agents.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -22,7 +22,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\src\config\tasks.yaml',
+        r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\tasks.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -66,7 +66,7 @@ class QuizGeneratorCrew:
                 model='groq/gemma2-9b-it',
                 # base_url="http://localhost:11434",
                 temperature=1,
-                api_key=os.getenv("GROQ_API_KEY")
+                api_key="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"
             )
         except Exception as e:
             raise RuntimeError(f"Failed to initialize LLM: {e}") from e
@@ -121,8 +121,7 @@ class QuizGeneratorCrew:
             list: List of Task objects for quiz generation and analysis.
         """
         try:
-            return [
-                Task(
+            mcq_generate_task = Task(
                 name=tasks_config['quiz_generate']['name'],
                 description=(
                     tasks_config["quiz_generate"]["description"]
@@ -133,8 +132,8 @@ class QuizGeneratorCrew:
                 agent=self.mcq_generator_agent[0],
                 output_file=tasks_config["quiz_generate"]["output_file"],
                 output_json=Quiz
-                ),
-            Task(
+                )
+            tf_generate_task = Task(
                 name=tasks_config['tf_question_task']['name'],
                 description=(
                     tasks_config["tf_question_task"]["description"]
@@ -146,8 +145,8 @@ class QuizGeneratorCrew:
                 # context=tasks_config["quiz_analysis"]["context"],
                 output_file=tasks_config["tf_question_task"]["output_file"],
                 output_json=TrueFalseQuestions,
-            ),
-            Task(
+            )
+            analysis_generate_task = Task(
                 name=tasks_config['quiz_analysis']['name'],
                 description=(
                     tasks_config["quiz_analysis"]["description"]
@@ -156,10 +155,14 @@ class QuizGeneratorCrew:
                     tasks_config["quiz_analysis"]["expected_output"]
                 ),
                 agent=self.mcq_generator_agent[1],
-                # context=tasks_config["quiz_analysis"]["context"],
+                context=[mcq_generate_task, tf_generate_task],
                 output_file=tasks_config["quiz_analysis"]["output_file"],
                 output_json=QuizAnalysisOutput,
             )
+            return [
+                mcq_generate_task,
+                tf_generate_task,
+                analysis_generate_task
             ]
         except Exception as e:
             raise RuntimeError(f"Failed to create tasks: {e}") from e
