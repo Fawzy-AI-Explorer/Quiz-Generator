@@ -5,8 +5,8 @@ Orchestrates the process of extracting text from PDFs and generating quiz questi
 using CrewAI agents. Takes a PDF input and produces JSON quiz output.
 """
 
-from crew import QuizGeneratorCrew
-from utils import process_pdf
+from src.crew import QuizGeneratorCrew
+from src.utils import process_pdf
 
 
 def run_pipeline(DATA_PATH):
@@ -21,7 +21,6 @@ def run_pipeline(DATA_PATH):
         }
         generator = QuizGeneratorCrew()
         result = generator.kickoff(inputs=inputs)
-        return result
     except Exception as e:
         print(f"Pipeline failed: {str(e)}")
         raise
@@ -34,16 +33,21 @@ def run_pipeline(DATA_PATH):
             file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\tf_quiz.json',
             mode='r',
             encoding='utf-8'
-        ) as f2:
+        ) as f2, \
+        open(
+            file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\quiz_analysis.json',
+            mode='r',
+            encoding='utf-8'
+        ) as f3:
         mcq_data = f1.read()
         tf_data = f2.read()
-        return mcq_data, tf_data
+        quiz_analysis_data = f3.read()
+        return mcq_data, tf_data, quiz_analysis_data
 
 
 # To Run the code:
 # cd
 # python src/quiz_pipeline.py
 if __name__ == "__main__":
-    DATA_PATH = r"C:\Users\TahaA\Downloads\Explanation of NLP Embedding Methods.pdf"
+    DATA_PATH = r"E:\Data Science\Projects\crewai\Quiz-Generator\data\Explanation of NLP Embedding Methods.pdf"
     run_pipeline(DATA_PATH)
-
