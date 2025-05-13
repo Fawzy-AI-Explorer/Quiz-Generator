@@ -8,7 +8,9 @@ Uses a pipeline to process text and create questions.
 import json
 import streamlit as st
 from src.quiz_pipeline import run_pipeline
-
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 # Custom CSS for better styling
 st.markdown(
     """
