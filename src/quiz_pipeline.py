@@ -10,15 +10,6 @@ from utils import process_pdf
 
 
 def run_pipeline(DATA_PATH):
-    """
-    Run the quiz generation pipeline.
-    Args:
-        DATA_PATH (str): Path to the PDF file to be processed.
-    Returns:
-        tuple: Contains two JSON strings:
-            - mcq_data: JSON string of multiple-choice questions
-            - tf_data: JSON string of true/false questions
-    """
     try:
         # Process PDF
         txt = process_pdf(DATA_PATH)
@@ -35,12 +26,12 @@ def run_pipeline(DATA_PATH):
         print(f"Pipeline failed: {str(e)}")
         raise
     with open(
-        file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\mcq_quiz.json',
+        file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\mcq_quiz.json',
         mode='r',
         encoding='utf-8'
     ) as f1, \
         open(
-            file=r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\tf_quiz.json',
+            file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\tf_quiz.json',
             mode='r',
             encoding='utf-8'
         ) as f2:

@@ -23,7 +23,7 @@ quiz_generate:
 quiz_analysis:
   name: Quiz Question Analysis
   description: >
-    Process multiple-choice (MCQ) quiz questions by explaining
+    Process multiple-choice (MCQ) quiz and True False (T/F) questions by explaining
     the question, providing detailed feedback on each answer option, and suggesting
     related topics for further study.
     Takes the output of the previous quiz_generator agent, which provides the quiz questions
