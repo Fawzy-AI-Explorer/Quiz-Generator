@@ -7,6 +7,7 @@ using CrewAI agents. Takes a PDF input and produces JSON quiz output.
 
 from src.crew import QuizGeneratorCrew
 from src.utils import process_pdf
+import os
 
 current_directory = os.path.dirname(os.path.abspath(__file__))
 print(current_directory)
