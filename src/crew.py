@@ -1,19 +1,26 @@
+import os
+import yaml
 from crewai import Agent, Task, Crew, Process, LLM
 from dotenv import load_dotenv
 from src.config.config import OUTPUT_PATH
-from Pydantic_models import Quiz
-import os
+from src.Pydantic_models import Quiz, QuizAnalysisOutput
+from src.utils import create_output_dir
 
-import yaml
 
 # Load the YAML content
-with open(r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\agents.yaml', 'r') as file:
+with open(
+    r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\agents.yaml',
+    mode='r',
+    encoding='utf-8'
+) as file:
     agents_config = yaml.safe_load(file)
-    # print(config["quiz_generator"])
 
-with open(r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\tasks.yaml', 'r') as file:
+with open(
+    r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\tasks.yaml',
+    mode='r',
+    encoding='utf-8'
+) as file:
     tasks_config = yaml.safe_load(file)
-    # print(config["quiz_generator"])
 
 
 load_dotenv()
@@ -25,36 +32,25 @@ TEMPERATURE = float(os.getenv("TEMPERATURE", 0.7))
 class QuizGeneratorCrew:
     """Class to handle the quiz generation process using Crew AI """
     def __init__(self):
-        
-        os.makedirs(OUTPUT_PATH, exist_ok=True)
+
+        create_output_dir(OUTPUT_PATH)
         self.llm = self._initialize_llm()
         self.mcq_generator_agent = self._initialize_agent()
 
     def _initialize_llm(self):
         """Initialize the LLM"""
         return LLM(
-            provider=PROVIDER,
-            model=MODEL,
-            base_url="http://localhost:11434",
-            temperature=TEMPERATURE
+            # provider=PROVIDER,
+            model='groq/gemma2-9b-it',
+            # base_url="http://localhost:11434",
+            temperature=0.5,
+            api_key="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"
         )
 
-    def _initialize_agent(self):
+    def _initialize_agent(self) -> list:
         """Initialize the MCQ generator agent"""
-        # return Agent(
-        #     role="Senior Educational Content Designer",
-        #     goal="Create high-quality MCQs from educational content",
-        #     backstory=(
-        #         "You are an expert in educational MCQs creation with "
-        #         "specialization in Quiz design and pedagogy. "
-        #         "Skilled at creating multiple-choice questions "
-        #         "that test conceptual understanding."
-        #     ),
-        #     llm=self.llm,
-        #     verbose=True,
-        #     allow_delegation=False
-        # )
-        return Agent(
+        return [
+            Agent(
             role=agents_config["quiz_generator"]["role"],
             goal=agents_config["quiz_generator"]["goal"],
             backstory=(
@@ -63,56 +59,73 @@ class QuizGeneratorCrew:
             llm=self.llm,
             verbose=True,
             allow_delegation=False
+        ),
+        Agent(
+            role=agents_config["quiz_analyzer"]["role"],
+            goal=agents_config["quiz_analyzer"]["goal"],
+            backstory=(
+                agents_config["quiz_analyzer"]["backstory"]
+            ),
+            llm=self.llm,
+            verbose=True,
+            allow_delegation=False
         )
-    
+        ]
 
-
-    def _create_task(self):
-        # return Task(
-        # description=(
-        #     "\n".join([
-        #         "Analyze the following technical content and generate a high-quality quiz:",
-        #         "CONTENT: ",
-        #         "{text}",
-        #         "REQUIREMENTS: ",
-        #         "1. Generate exactly 10 MCQs covering key concepts",
-        #         "2. Ensure questions progress from basic to advanced",
-        #         "3. Each question must have:",
-        #         "- Clear question with complete phrasing",
-        #         "- 4 plausible distractors",
-        #         "- One unambiguous correct answer",
-                
-        #         "- Output strict JSON format"                   
-        #             ])
-        # ),
-        # expected_output=(
-        #     "JSON object containing 10 MCQs following the specified format. "
-        #     "Ensure proper escaping for JSON validity."
-        # ),
-        # agent=self.mcq_generator_agent,
-        # output_file=os.path.join(OUTPUT_PATH, "generated_quiz.json"),
-        # output_json=Quiz
-        # )
-        return Task(
+    def _create_task(self) -> list:
+        """Create a task for quiz generation.
+        
+        Returns:
+            Task: A Task object configured for quiz generation with:
+                - Description from tasks config
+                - Expected output format
+                - Associated MCQ generator agent
+                - Output file path
+                - Output JSON schema
+        """
+        return [
+            Task(
+            name=tasks_config['quiz_generator']['name'],
             description=(
                 tasks_config["quiz_generator"]["description"]
             ),
             expected_output=(
                 tasks_config["quiz_generator"]["expected_output"]
             ),
-            agent=self.mcq_generator_agent,
+            agent=self.mcq_generator_agent[0],
             output_file=tasks_config["quiz_generator"]["output_file"],
             output_json=Quiz
+            ),
+        Task(
+            name=tasks_config['quiz_analysis']['name'],
+            description=(
+                tasks_config["quiz_analysis"]["description"]
+            ),
+            expected_output=(
+                tasks_config["quiz_analysis"]["expected_output"]
+            ),
+            agent=self.mcq_generator_agent[1],
+            # context=tasks_config["quiz_analysis"]["context"],
+            output_file=tasks_config["quiz_analysis"]["output_file"],
+            output_json=QuizAnalysisOutput,
         )
+        ]
     def kickoff(self, inputs):
-
+        """Kickoff the quiz generation process.
+        
+        Args:
+            inputs (dict): Dictionary containing input parameters.
+                Required key:
+                - text (str): The text content to generate quiz from
+                
+        Returns:
+            dict: The generated quiz in JSON format
+        """
         crew = Crew(
-            agents=[self.mcq_generator_agent],
-            tasks=[self._create_task()],
-            process=Process.sequential
+            agents=self.mcq_generator_agent,
+            tasks=self._create_task(),
+            process=Process.sequential,
+            verbose=True
         )
         print("Crew initialized successfully!")
         return crew.kickoff(inputs=inputs)
-    
-
-
