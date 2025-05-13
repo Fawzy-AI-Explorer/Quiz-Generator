@@ -7,11 +7,13 @@ from src.config.config import OUTPUT_PATH
 from src.Pydantic_models import Quiz, QuizAnalysisOutput, TrueFalseQuestions
 from src.utils import create_output_dir
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+config_path = os.path.join(current_directory, 'src', 'config', 'agents.yaml')
 
 # Load agent configuration from YAML
 try:
     with open(
-        r'src\config\agents.yaml',
+        config_path,
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -22,7 +24,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'E:\DATA SCIENCE\projects\Agents\01-Quiz generator\src\config\tasks.yaml',
+        r'mount\src\config\tasks.yaml',
         mode='r',
         encoding='utf-8'
     ) as file:
