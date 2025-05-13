@@ -6,7 +6,7 @@ quiz_generate:
       CONTENT:
       {text}
       REQUIREMENTS:
-      1. Generate exactly 10 MCQs covering key concepts
+      1. Generate exactly five MCQs covering key concepts
       2. Ensure questions progress from basic to advanced
       3. Each question must have:
       - Clear question with complete phrasing
@@ -14,9 +14,9 @@ quiz_generate:
       - One unambiguous correct answer
       - Output strict JSON format 
   expected_output: >
-    JSON object containing 10 MCQs following the specified format.
+    JSON object containing five MCQs following the specified format.
     Ensure proper escaping for JSON validity.
-  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\generated_quiz.json #os.path.join(OUTPUT_PATH, "generated_quiz.json
+  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\mcq_quiz.json
 
 
 # Quiz Analyzer Configuration
@@ -33,4 +33,22 @@ quiz_analysis:
     Ensure proper escaping for JSON validity.
   context: >
     - quiz_generator
-  output_file: E:\DATA SCIENCE\projects\Agents\01-Quiz generator\output\quiz_analysis.json
+  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\quiz_analysis.json
+
+# tf_question_task Configuration
+tf_question_task:
+  name: tf question task
+  description: >
+    Generate Exactly five True/False questions from the following content:",
+    Content:
+    {text}
+    Rules:
+    - Questions must be factually accurate based on the content.
+    - Avoid ambiguous or opinion-based questions.
+    - Provide a clear 'True' or 'False' answer for each question.
+    - Include a short explanation justifying the answer.
+    Generate exactly 5 questions.
+  expected_output: >
+    JSON object following the specified format.
+    Ensure proper escaping for JSON validity.
+  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\tf_quiz.json
