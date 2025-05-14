@@ -14,9 +14,7 @@ Quiz Generator is an AI-powered application built using CrewAI that automaticall
 
 ## 🎥 Live Demo
 
-
 https://github.com/user-attachments/assets/701ee9f4-3759-4b05-a6d3-1202f3127f2c
-
 
 ## ✨ Features
 
