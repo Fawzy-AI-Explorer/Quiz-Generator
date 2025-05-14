@@ -1,5 +1,5 @@
 """Configuration file"""
 
 # File Paths
-DATA_PATH   = r"E:\Data Science\Projects\crewai\Quiz-Generator\data\Explanation of NLP Embedding Methods.pdf"
-OUTPUT_PATH = r"E:\Data Science\Projects\crewai\Quiz-Generator\output"
+# DATA_PATH   = r"E:\DATA SCIENCE\projects\Agents\01-Quiz generator\data\[7] RNN-GRU-LSTM.pdf"
+OUTPUT_PATH = '/mount/src/quiz-generator/output/'

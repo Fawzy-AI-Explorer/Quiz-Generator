@@ -5,9 +5,15 @@ Orchestrates the process of extracting text from PDFs and generating quiz questi
 using CrewAI agents. Takes a PDF input and produces JSON quiz output.
 """
 
-from crew import QuizGeneratorCrew
-from utils import process_pdf
+from src.crew import QuizGeneratorCrew
+from src.utils import process_pdf
+import os
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+print(current_directory)
+mcq_out_path = '/mount/src/quiz-generator/output/mcq_quiz.json'
+tf_out_path = '/mount/src/quiz-generator/output/tf_quiz.json'
+analyze_out_path = '/mount/src/quiz-generator/output/quiz_analyzer.json'
 
 def run_pipeline(DATA_PATH):
     try:
@@ -21,23 +27,21 @@ def run_pipeline(DATA_PATH):
         }
         generator = QuizGeneratorCrew()
         result = generator.kickoff(inputs=inputs)
-        print(result)
-        return result
     except Exception as e:
         print(f"Pipeline failed: {str(e)}")
         raise
     with open(
-        file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\mcq_quiz.json',
+        file=mcq_out_path,
         mode='r',
         encoding='utf-8'
     ) as f1, \
         open(
-            file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\tf_quiz.json',
+            file=tf_out_path,
             mode='r',
             encoding='utf-8'
         ) as f2, \
         open(
-            file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\quiz_analysis.json',
+            file=analyze_out_path,
             mode='r',
             encoding='utf-8'
         ) as f3:

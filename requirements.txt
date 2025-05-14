@@ -5,3 +5,7 @@ pypdf
 streamlit
 PyPDF2
 black
+pysqlite3-binary
+chromadb
+numpy
+hnswlib

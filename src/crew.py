@@ -7,11 +7,18 @@ from src.config.config import OUTPUT_PATH
 from src.Pydantic_models import Quiz, QuizAnalysisOutput, TrueFalseQuestions
 from src.utils import create_output_dir
 
+current_directory = os.path.dirname(os.path.abspath(__file__))
+print(current_directory)
+config_agent_path = '/mount/src/quiz-generator/src/config/agents.yaml'
+config_task_path = '/mount/src/quiz-generator/src/config/tasks.yaml'
+mcq_out_path = '/mount/src/quiz-generator/output/mcq_quiz.json'
+tf_out_path = '/mount/src/quiz-generator/output/tf_quiz.json'
+analyze_out_path = '/mount/src/quiz-generator/output/quiz_analyzer.json'
 
 # Load agent configuration from YAML
 try:
     with open(
-        r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\agents.yaml',
+        config_agent_path,
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -22,7 +29,7 @@ except Exception as e:
 # Load task configuration from YAML
 try:
     with open(
-        r'E:\Data Science\Projects\crewai\Quiz-Generator\src\config\tasks.yaml',
+        config_task_path,
         mode='r',
         encoding='utf-8'
     ) as file:
@@ -30,11 +37,6 @@ try:
 except Exception as e:
     raise RuntimeError(f"Failed to load tasks.yaml: {e}") from e
 
-load_dotenv()
-PROVIDER = os.getenv("PROVIDER")
-MODEL = os.getenv("MODEL")
-BASE_URL = os.getenv("BASE_URL")
-TEMPERATURE = float(os.getenv("TEMPERATURE"))
 
 class QuizGeneratorCrew:
     """
@@ -66,7 +68,7 @@ class QuizGeneratorCrew:
                 model='groq/gemma2-9b-it',
                 # base_url="http://localhost:11434",
                 temperature=1,
-                api_key="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"
+                api_key="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"
             )
         except Exception as e:
             raise RuntimeError(f"Failed to initialize LLM: {e}") from e
@@ -130,7 +132,7 @@ class QuizGeneratorCrew:
                     tasks_config["quiz_generate"]["expected_output"]
                 ),
                 agent=self.mcq_generator_agent[0],
-                output_file=tasks_config["quiz_generate"]["output_file"],
+                output_file=mcq_out_path,
                 output_json=Quiz
                 )
             tf_generate_task = Task(
@@ -143,7 +145,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[2],
                 # context=tasks_config["quiz_analysis"]["context"],
-                output_file=tasks_config["tf_question_task"]["output_file"],
+                output_file=tf_out_path,
                 output_json=TrueFalseQuestions,
             )
             analysis_generate_task = Task(
@@ -156,7 +158,7 @@ class QuizGeneratorCrew:
                 ),
                 agent=self.mcq_generator_agent[1],
                 context=[mcq_generate_task, tf_generate_task],
-                output_file=tasks_config["quiz_analysis"]["output_file"],
+                output_file=analyze_out_path,
                 output_json=QuizAnalysisOutput,
             )
             return [
@@ -166,6 +168,7 @@ class QuizGeneratorCrew:
             ]
         except Exception as e:
             raise RuntimeError(f"Failed to create tasks: {e}") from e
+
     def kickoff(self, inputs):
         """Kickoff the quiz generation process.
         
