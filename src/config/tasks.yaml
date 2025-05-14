@@ -16,7 +16,7 @@ quiz_generate:
   expected_output: >
     JSON object containing five MCQs following the specified format.
     Ensure proper escaping for JSON validity.
-  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\mcq_quiz.json
+  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\mcq_quiz.json
 
 
 # Quiz Analyzer Configuration
@@ -33,7 +33,7 @@ quiz_analysis:
     Ensure proper escaping for JSON validity.
   context: >
     - quiz_generator
-  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\quiz_analysis.json
+  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\quiz_analysis.json
 
 # tf_question_task Configuration
 tf_question_task:
@@ -51,4 +51,4 @@ tf_question_task:
   expected_output: >
     JSON object following the specified format.
     Ensure proper escaping for JSON validity.
-  output_file: E:\ROOT\FCAI\ML_DL_Courses\Projects\Quiz-Generator\output\tf_quiz.json
+  output_file: E:\Data Science\Projects\crewai\Quiz-Generator\output\tf_quiz.json

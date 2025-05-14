@@ -21,6 +21,7 @@ def run_pipeline(DATA_PATH):
         }
         generator = QuizGeneratorCrew()
         result = generator.kickoff(inputs=inputs)
+        print(result)
         return result
     except Exception as e:
         print(f"Pipeline failed: {str(e)}")
@@ -34,16 +35,21 @@ def run_pipeline(DATA_PATH):
             file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\tf_quiz.json',
             mode='r',
             encoding='utf-8'
-        ) as f2:
+        ) as f2, \
+        open(
+            file=r'E:\Data Science\Projects\crewai\Quiz-Generator\output\quiz_analysis.json',
+            mode='r',
+            encoding='utf-8'
+        ) as f3:
         mcq_data = f1.read()
         tf_data = f2.read()
-        return mcq_data, tf_data
+        quiz_analysis_data = f3.read()
+        return mcq_data, tf_data, quiz_analysis_data
 
 
 # To Run the code:
 # cd
 # python src/quiz_pipeline.py
 if __name__ == "__main__":
-    DATA_PATH = r"C:\Users\TahaA\Downloads\Explanation of NLP Embedding Methods.pdf"
+    DATA_PATH = r"E:\Data Science\Projects\crewai\Quiz-Generator\data\Explanation of NLP Embedding Methods.pdf"
     run_pipeline(DATA_PATH)
-
