@@ -1,0 +1,64 @@
+{
+  "quiz": [
+    {
+      "Question_Explanation": "This question asks about the fundamental purpose of word embeddings in Natural Language Processing.",
+      "Answer_Feedback": "A: To store words alphabetically - This is incorrect. Word embeddings aim to capture semantic relationships, not just store words in order.\nB: To convert words into numerical vectors that capture semantic relationships - This is the correct answer. Word embeddings represent words as numerical vectors, allowing computers to understand the meaning and relationships between words.\nC: To analyze the grammatical structure of sentences - This is incorrect.  While word embeddings can indirectly inform grammatical analysis, their primary focus is on semantic meaning.\nD: To identify misspelled words - This is incorrect. Spell checking is a separate task often handled by different algorithms.",
+      "Correct_Answer": "B",
+      "Related_Topics": "Semantic Similarity, Vector Space Model, Word Representation"
+    },
+    {
+      "Question_Explanation": "This question asks you to identify a characteristic that is NOT desirable in good word embeddings.",
+      "Answer_Feedback": "A: Capture semantic relationships - This is a key characteristic of good word embeddings.\nB: Low dimensionality - This is desirable as it makes the representations more manageable and efficient.\nC: Contextual relationships - This is increasingly important in modern word embeddings.\nD: High sparsity - This is incorrect. Good word embeddings aim for dense representations, where most elements have non-zero values, allowing for better capture of semantic nuances.",
+      "Correct_Answer": "D",
+      "Related_Topics": "Dimensionality Reduction, Sparse vs. Dense Vectors"
+    },
+    {
+      "Question_Explanation": "This question asks about the predictive nature of the Word2Vec model.",
+      "Answer_Feedback": "A: It predicts the next word in a sequence based on the preceding words. - This is correct. Word2Vec uses a sliding window approach to predict the next word given its context.\nB: It predicts the context words given a target word. - This describes the Skip-gram model, another variant of Word2Vec.\nC: It predicts the frequency of word co-occurrence in a corpus. - This is related to co-occurrence statistics but not the core mechanism of Word2Vec.\nD: It predicts the grammatical structure of a sentence. -  Word2Vec primarily focuses on semantic relationships, not grammatical structure.",
+      "Correct_Answer": "A",
+      "Related_Topics": "Predictive Modeling, Skip-gram vs. Continuous Bag-of-Words (CBOW)"
+    },
+    {
+      "Question_Explanation": "This question asks about the method GloVe uses to construct word embeddings.",
+      "Answer_Feedback": "A: By analyzing the syntactic relationships between words in a sentence. - This is not how GloVe works. It focuses on global co-occurrence patterns.\nB: By predicting the context words given a target word. - This describes the Skip-gram model, similar to Word2Vec.\nC: By leveraging global word co-occurrence statistics from a corpus. - This is the core principle behind GloVe.\nD: By representing words as bags of character n-grams. - This is a different approach used in models like FastText.",
+      "Correct_Answer": "C",
+      "Related_Topics": "Co-occurrence Statistics, Global vs. Local Context"
+    },
+    {
+      "Question_Explanation": "This question asks about a limitation of traditional word embeddings.",
+      "Answer_Feedback": "A: They are computationally expensive to train. - This can be true for large-scale training, but not necessarily a fundamental limitation.\nB: They are insensitive to the context in which a word appears. - This is a key limitation. Traditional embeddings often struggle with words having multiple meanings (polysemy).\nC: They require large amounts of labeled data for training. - This is incorrect. Traditional word embeddings are primarily unsupervised.",
+      "Correct_Answer": "B",
+      "Related_Topics": "Polysemy, Contextual Embeddings, BERT, ELMo"
+    },
+    {
+      "Question_Explanation": "This True/False question asks about the dimensionality of word embeddings.",
+      "Answer_Feedback": "True - Word embeddings are typically represented as dense vectors in a high-dimensional space, allowing for nuanced semantic representations.",
+      "Correct_Answer": "True",
+      "Related_Topics": "Dimensionality Reduction, Vector Space Model"
+    },
+    {
+      "Question_Explanation": "This True/False question asks about TF-IDF and its relationship to word embeddings.",
+      "Answer_Feedback": "False - TF-IDF (Term Frequency-Inverse Document Frequency) is a statistical measure of word importance, not a word embedding technique.",
+      "Correct_Answer": "False",
+      "Related_Topics": "TF-IDF, Word Frequency, Document Similarity"
+    },
+    {
+      "Question_Explanation": "This True/False question asks about the benefits of using pre-trained word embeddings.",
+      "Answer_Feedback": "True - Pre-trained word embeddings can significantly reduce training time and resources compared to training from scratch.",
+      "Correct_Answer": "True",
+      "Related_Topics": "Transfer Learning, Pre-trained Models"
+    },
+    {
+      "Question_Explanation": "This True/False question asks about the ability of traditional word embeddings to handle polysemy.",
+      "Answer_Feedback": "False - Traditional word embeddings often struggle to capture the different meanings of polysemous words due to their static nature.",
+      "Correct_Answer": "False",
+      "Related_Topics": "Polysemy, Contextual Embeddings"
+    },
+    {
+      "Question_Explanation": "This True/False question asks about the subword information considered by FastText.",
+      "Answer_Feedback": "True - FastText extends Word2Vec by incorporating subword information, improving its ability to handle out-of-vocabulary words and morphological variations.",
+      "Correct_Answer": "True",
+      "Related_Topics": "Subword Information, Morphological Analysis"
+    }
+  ]
+}
