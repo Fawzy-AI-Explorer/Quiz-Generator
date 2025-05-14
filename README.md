@@ -11,9 +11,7 @@ Quiz Generator is an AI-powered application built using CrewAI that automaticall
 
 ## 🎥 Live Demo
 
-<video src="assets/live_demo.mkv" controls width="600">
-    Your browser does not support the video tag.
-</video>
+![Live Demo](assets/live_demo.mkv)
 
 
 ## ✨ Features
