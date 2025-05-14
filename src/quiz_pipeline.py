@@ -50,11 +50,11 @@ def run_pipeline(data_path):
 
         for result in result.tasks_output:
             if result.name == "MCQ Quiz Generate":
-                task_results[0] = result.raw
+                task_results[0] = result.json
             elif result.name == "True False Quiz Generate":
-                task_results[1] = result.raw
+                task_results[1] = result.json
             elif result.name == "Quiz Questions Analysis":
-                task_results[2] = result.raw
+                task_results[2] = result.json
             else:
                 raise NameError(f"Unknown task name {result.name}")
 
