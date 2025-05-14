@@ -4,6 +4,8 @@
 
 > Generate intelligent quizzes from any PDF document using AI Agents
 
+[🚀 Try the Live App](https://quiz-generator-tf3.streamlit.app/)
+
 A sophisticated quiz generation system that transforms PDF documents into educational assessments, leveraging AI agents to create high-quality multiple-choice and true/false questions with detailed explanations.
 
 ## 📋 Introduction
