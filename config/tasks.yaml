@@ -1,0 +1,50 @@
+# Quiz Generator Configuration
+quiz_generate:
+  name: MCQ Quiz Generate
+  description: >
+      Analyze the following technical content and generate a high-quality quiz:
+      CONTENT:
+      {text}
+      REQUIREMENTS:
+      1. Generate exactly five MCQs covering key concepts
+      2. Ensure questions progress from basic to advanced
+      3. Each question must have:
+      - Clear question with complete phrasing
+      - 4 plausible distractors
+      - One unambiguous correct answer
+      - Output strict JSON format 
+  expected_output: >
+    JSON object containing five MCQs following the specified format.
+    Ensure proper escaping for JSON validity.
+
+
+# Quiz Analyzer Configuration
+quiz_analysis:
+  name: Quiz Questions Analysis
+  description: >
+    Process multiple-choice (MCQ) quiz and True False (T/F) questions by explaining
+    the question, providing detailed feedback on each answer option, and suggesting
+    related topics for further study.
+    Takes the output of the previous quiz_generator agent, which provides the quiz questions
+    along with the correct answer index, as context.
+  expected_output: >
+    JSON object following the specified format.
+    Ensure proper escaping for JSON validity.
+
+
+# tf_question_task Configuration
+tf_question_task:
+  name: True False Quiz Generate
+  description: >
+    Generate Exactly five True/False questions from the following content:",
+    Content:
+    {text}
+    Rules:
+    - Questions must be factually accurate based on the content.
+    - Avoid ambiguous or opinion-based questions.
+    - Provide a clear 'True' or 'False' answer for each question.
+    - Include a short explanation justifying the answer.
+    Generate exactly 5 questions.
+  expected_output: >
+    JSON object following the specified format.
+    Ensure proper escaping for JSON validity.
