@@ -9,6 +9,10 @@ A sophisticated quiz generation system that transforms PDF documents into educat
 
 Quiz Generator is an AI-powered application built using CrewAI that automatically creates educational quizzes from PDF documents. The system employs specialized AI agents working together to extract content, generate questions, and provide comprehensive answer explanations. Perfect for educators, content creators, and students looking to create assessment materials or test their understanding of technical content.
 
+## 🎥 Live Demo
+
+![Live Demo](./assets/live_demo.mkv)
+
 ## ✨ Features
 
 - 🤖 **AI Agent-Powered**: Utilizes specialized CrewAI agents for different aspects of quiz generation
