@@ -14,14 +14,12 @@ except ImportError:
 import sqlite3
 print(f"SQLite version: {sqlite3.sqlite_version}")
 print(f"SQLite module path: {sqlite3.__file__}")
-import chromadb
-import crewai
-import streamlit
-import numpy
+
 
 import json
 import streamlit as st
 from src.quiz_pipeline import run_pipeline
+from src.utils import format_quiz_output, format_quiz_text
 
 # Custom CSS for better styling
 st.markdown(
@@ -75,123 +73,24 @@ st.markdown(
 )
 
 
-def format_quiz_output(json_data_mcq, json_data_tf, json_data_analysis):
-    """Format quiz JSON data into HTML output for MCQ and True/False questions.
+def main():
+    """Main Streamlit application function.
 
-    Args:
-        json_data_mcq (dict): JSON data containing MCQ quiz questions with topic and quiz items
-        json_data_tf (dict): JSON data containing True/False
-                             quiz questions with topic and quiz items
+    This function handles:
+    1. Initializing session state variables for file uploads and outputs
+    2. Setting up the main UI components including title and sidebar
+    3. Processing uploaded PDFs through the quiz generation pipeline
+    4. Displaying formatted quiz results and analysis
+
+    The app allows users to:
+    - Upload PDF files
+    - Generate MCQ and True/False questions
+    - View detailed question analysis
+    - Download quiz content
 
     Returns:
-        tuple: A tuple containing two strings (mcq_output, tf_output)
-               with formatted HTML for both quiz types.
-            Returns None if required JSON structure is invalid.
-
-    The function expects JSON data in the following format:
-    {
-        "topic": "Quiz Topic",
-        "quiz": [
-            {
-                "question": "Question text",
-                "options": ["Option 1", "Option 2", ...]
-            },
-            ...
-        ]
-    }
+        None
     """
-
-    # MCQ Quiz
-    if "quiz" not in json_data_mcq or "topic" not in json_data_mcq:
-        return None
-
-    topic = json_data_mcq["topic"]
-    quiz_items = json_data_mcq["quiz"]
-
-    mcq_output = f'<div class="quiz-title">Quiz on {topic}</div>'
-
-    for idx, item in enumerate(quiz_items, 1):
-        question_html = f'<div class="quiz-container">'
-        question_html += f'<div class="quiz-question">Q{idx}: {item["question"]}</div>'
-        for opt_idx, option in enumerate(item["options"], 0):
-            question_html += (
-                f'<div class="quiz-option">{"abcd"[opt_idx]}. {option}</div>'
-            )
-        question_html += "</div>"
-        mcq_output += question_html
-
-    # TF Quiz
-    if "quiz" not in json_data_tf:
-        return None
-
-    quiz_items = json_data_tf["quiz"]
-
-    tf_output = f'<div class="quiz-title">Quiz on {topic}</div>'
-
-    for idx, item in enumerate(quiz_items, 1):
-        question_html = f'<div class="quiz-container">'
-        question_html += f'<div class="quiz-question">Q{idx}: {item["question"]}</div>'
-        for opt_idx, option in enumerate(item["options"], 0):
-            question_html += (
-                f'<div class="quiz-option">{"abcd"[opt_idx]}. {option}</div>'
-            )
-        question_html += "</div>"
-        tf_output += question_html
-
-    # Quiz Analysis
-    if "quiz" not in json_data_analysis:
-        return None
-
-    quiz_items = json_data_analysis["quiz"]
-
-    analysis_output = f'<div class="quiz-title">Quiz on {topic}</div>'
-
-    for idx, item in enumerate(quiz_items, 1):
-        question_html = f'<div class="quiz-container">'
-        question_html += f'<div class="quiz-question">Question Explanation: {item["Question_Explanation"]}</div>'
-        question_html += f'<div class="quiz-question">Answer Feedback: {item["Answer_Feedback"]}</div>'
-        question_html += f'<div class="quiz-question">Correct Answer: {item["Correct_Answer"]}</div>'
-        question_html += f'<div class="quiz-question">Related Topics: {item["Related_Topics"]}</div>'
-        question_html += "</div>"
-        analysis_output += question_html
-
-    return mcq_output, tf_output, analysis_output
-
-
-def format_quiz_text(json_data_mcq, json_data_tf):
-    """Format quiz JSON into plain text for download."""
-    if "quiz" not in json_data_mcq or "topic" not in json_data_mcq:
-        return None
-
-    topic = json_data_mcq["topic"]
-    quiz_items = json_data_mcq["quiz"]
-
-    output = f"Quiz on {topic}\n\n"
-    output = f"MCQ Questions\n\n"
-
-    for _, item in enumerate(quiz_items, 1):
-        output += f"Question: {item['question']}\n"
-        for _, option in enumerate(item["options"], 0):
-            output += f"{option}\n"
-        output += "\n"
-
-    if "quiz" not in json_data_tf or "topic" not in json_data_tf:
-        return None
-
-    quiz_items = json_data_tf["quiz"]
-
-    output = f"T/F Questions\n\n"
-
-    for _, item in enumerate(quiz_items, 1):
-        output += f"Question: {item['question']}\n"
-        for _, option in enumerate(item["options"], 0):
-            output += f"{option}\n"
-        output += "\n"
-
-    return output
-
-
-def main():
     # Initialize session state variables
     if "uploaded_file_content" not in st.session_state:
         st.session_state.uploaded_file_content = None
@@ -226,6 +125,7 @@ def main():
             # Reset file pointer to start for run_pipeline
             uploaded_file.seek(0)
             st.session_state.json_output = run_pipeline(uploaded_file)
+            print(f"st.session_state.json_output: {st.session_state.json_output}")
 
     # Display results if JSON output exists
     if st.session_state.json_output is not None:
@@ -234,15 +134,23 @@ def main():
 
         try:
             mcq_json_out = st.session_state.json_output[0]
+            print(f"mcq_json_out: {mcq_json_out}")
             tf_json_out = st.session_state.json_output[1]
+            print(f"tf_json_out: {tf_json_out}")
             analysis_json_out = st.session_state.json_output[2]
+            print(f"analysis_json_out: {analysis_json_out}")
             mcq_parsed_json = json.loads(mcq_json_out)
+            print(f"mcq_parsed_json: {mcq_parsed_json}")
             tf_parsed_json = json.loads(tf_json_out)
+            print(f"tf_parsed_json: {tf_parsed_json}")
             analysis_parsed_json = json.loads(analysis_json_out)
+            print(f"analysis_parsed_json: {analysis_parsed_json}")
 
             # Format JSON output for display
-            mcq_formatted_output, tf_formatted_output, analysis_formatted_output = format_quiz_output(
-                mcq_parsed_json, tf_parsed_json, analysis_parsed_json
+            mcq_formatted_output, tf_formatted_output, analysis_formatted_output = (
+                format_quiz_output(
+                    mcq_parsed_json, tf_parsed_json, analysis_parsed_json
+                )
             )
 
             # Display mcq formatted quiz
@@ -277,6 +185,7 @@ def main():
 
     else:
         st.info("Please upload a PDF file to begin processing.")
+
 
 if __name__ == "__main__":
     main()
