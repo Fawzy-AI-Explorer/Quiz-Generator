@@ -12,7 +12,7 @@ Quiz Generator is an AI-powered application built using CrewAI that automaticall
 
 ## 🎥 Live Demo
 
-[![Watch the video](https://raw.githubusercontent.com/Fawzy-AI-Explorer/Quiz-Generator/main/assets/live_demo.mkv)](https://raw.githubusercontent.com/Fawzy-AI-Explorer/Quiz-Generator/main/assets/live_demo.mkv)
+[![Watch the video](https://raw.githubusercontent.com/Fawzy-AI-Explorer/Quiz-Generator/main/assets/demo.mp4)](https://raw.githubusercontent.com/Fawzy-AI-Explorer/Quiz-Generator/main/assets/demo.mp4)
 
 ## ✨ Features
 
