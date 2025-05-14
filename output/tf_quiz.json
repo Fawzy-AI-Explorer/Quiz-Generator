@@ -1,0 +1,44 @@
+{
+  "quiz": [
+    {
+      "question": "Word embeddings represent words as dense, numerical vectors in a high-dimensional space.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct_index": 0
+    },
+    {
+      "question": "TF-IDF is a word embedding technique that learns word representations by predicting context words.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "One advantage of using pre-trained word embeddings is that they can save training time and resources.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct_index": 0
+    },
+    {
+      "question": "Traditional word embeddings like Word2Vec are highly effective at capturing the different meanings of polysemous words.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "FastText is an extension of Word2Vec that considers subword information.",
+      "options": [
+        "True",
+        "False"
+      ],
+      "correct_index": 0
+    }
+  ]
+}

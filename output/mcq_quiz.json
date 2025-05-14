@@ -1,0 +1,55 @@
+{
+  "quiz": [
+    {
+      "question": "What is the primary purpose of word embeddings in Natural Language Processing (NLP)?",
+      "options": [
+        "To store words alphabetically.",
+        "To convert words into numerical vectors that capture semantic relationships.",
+        "To analyze the grammatical structure of sentences.",
+        "To identify misspelled words."
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "Which of the following is NOT a key characteristic of good word embeddings?",
+      "options": [
+        "Capture semantic relationships",
+        "Low dimensionality",
+        "Contextual relationships",
+        "High sparsity"
+      ],
+      "correct_index": 3
+    },
+    {
+      "question": "Word2Vec utilizes a predictive model. What does this mean?",
+      "options": [
+        "It predicts the next word in a sequence based on the preceding words.",
+        "It predicts the context words given a target word.",
+        "It predicts the frequency of word co-occurrence in a corpus.",
+        "It predicts the grammatical structure of a sentence."
+      ],
+      "correct_index": 1
+    },
+    {
+      "question": "How does GloVe (Global Vectors for Word Representation) construct word embeddings?",
+      "options": [
+        "By analyzing the syntactic relationships between words in a sentence.",
+        "By predicting the context words given a target word.",
+        "By leveraging global word co-occurrence statistics from a corpus.",
+        "By representing words as bags of character n-grams."
+      ],
+      "correct_index": 2
+    },
+    {
+      "question": "What is a limitation of traditional word embeddings like Word2Vec and GloVe?",
+      "options": [
+        "They are computationally expensive to train.",
+        "They cannot capture semantic relationships between words.",
+        "They are insensitive to the context in which a word appears.",
+        "They require large amounts of labeled data for training."
+      ],
+      "correct_index": 2
+    }
+  ],
+  "topic": "Word Embeddings"
+}
