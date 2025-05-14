@@ -3,6 +3,7 @@ Quiz Generator Web Application
 
 A Streamlit app that generates multiple-choice quizzes from input text.
 Uses a pipeline to process text and create questions.
+DONE✅
 """
 
 import sys
